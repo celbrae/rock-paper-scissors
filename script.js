@@ -12,65 +12,105 @@ function getComputerChoice() {
 
 // make function that gets human choice and returns as string value
 function getHumanChoice() {
-    return prompt("Pick rock, paper, or scissors").toLowerCase();
+    btn1.onclick = () => "rock";
+}
+
+function checkScores(humanScore, computerScore) {
+    if (humanScore === 5 || computerScore === 5) {
+        if (humanScore > computerScore) {
+            scoreDiv.textContent = "Human score: " + humanScore + " --- Computer score: " + computerScore + " || HUMAN WINS";
+        } else {
+            scoreDiv.textContent = "Human score: " + humanScore + " --- Computer score: " + computerScore + " || COMPUTER WINS";
+        }
+    } 
 }
 
 // create a function that holds the logic to play a round
 function playRound(humanChoice, computerChoice) {
-    if (humanChoice === "rock") {
-        if (computerChoice === "rock") {
-            console.log("Draw");
-        } else if (computerChoice === "paper") {
-            console.log("Loss");
-            computerScore += 1;
-        } else {
-            console.log("Win");
-            humanScore += 1;
-        }
-    } else if (humanChoice === "paper") {
-        if (computerChoice === "rock") {
-            console.log("Win");
-            humanScore += 1;
-        } else if (computerChoice === "paper") {
-            console.log("Draw");
-        } else {
-            console.log("Loss");
-            computerScore += 1;
-        }
-    } else if (humanChoice === "scissors") {
-        if (computerChoice === "rock") {
-            console.log("Loss");
-            computerScore += 1;
-        } else if (computerChoice === "paper") {
-            console.log("Win");
-            humanScore += 1;
-        } else {
-            console.log("Draw");
+    checkScores(humanScore, computerScore);
+    if (humanScore !== 5 & computerScore !== 5) {
+        if (humanChoice === "rock") {
+            humanSelectionDiv.textContent = "Human selects rock";
+            if (computerChoice === "rock") {
+                computerSelectionDiv.textContent = "Computer selects rock";
+                resultDiv.textContent = "Draw";
+            } else if (computerChoice === "paper") {
+                computerSelectionDiv.textContent = "Computer selects paper";
+                resultDiv.textContent = "Loss";
+                computerScore += 1;
+            } else {
+                computerSelectionDiv.textContent = "Computer selects scissors";
+                resultDiv.textContent = "Win";
+                humanScore += 1;
+            }
+        } else if (humanChoice === "paper") {
+            humanSelectionDiv.textContent = "Human selects paper";
+            if (computerChoice === "rock") {
+                computerSelectionDiv.textContent = "Computer selects rock";
+                resultDiv.textContent = "Win";
+                humanScore += 1;
+            } else if (computerChoice === "paper") {
+                computerSelectionDiv.textContent = "Computer selects paper";
+                resultDiv.textContent = "Draw";
+            } else {
+                computerSelectionDiv.textContent = "Computer selects scissors";
+                resultDiv.textContent = "Loss";
+                computerScore += 1;
+            }
+        } else if (humanChoice === "scissors") {
+            humanSelectionDiv.textContent = "Human selects scissors";
+            if (computerChoice === "rock") {
+                computerSelectionDiv.textContent = "Computer selects rock";
+                resultDiv.textContent = "Loss";
+                computerScore += 1;
+            } else if (computerChoice === "paper") {
+                computerSelectionDiv.textContent = "Computer selects paper";
+                resultDiv.textContent = "Win";
+                humanScore += 1;
+            } else {
+                computerSelectionDiv.textContent = "Computer selects scissors";
+                resultDiv.textContent = "Draw";
+            }
         }
     }
 }
-// create a function that calls the previous function 5 times
-function playGame() {
-    for (i = 0; i<5; i++){
-        humanChoice = getHumanChoice();
-        computerChoice = getComputerChoice();
-        playRound(humanChoice, computerChoice);
-    }
-    console.log("Human score: " + humanScore);
-    console.log("Computer score: " + computerScore);
-    if (humanScore > computerScore) {
-        console.log("Human wins!");
-    } else if (humanScore < computerScore) {
-        console.log("Computer wins!");
-    } else {
-        console.log("It's a draw!");
-    }
-}
+
+// define the buttons
+const btn1 = document.querySelector("#btn1");
+const btn2 = document.querySelector("#btn2");
+const btn3 = document.querySelector("#btn3");
+
+const humanSelectionDiv = document.getElementById("humanSelection");
+const computerSelectionDiv = document.getElementById("computerSelection");
+const resultDiv = document.getElementById("result");
+const scoreDiv = document.getElementById("score");
 
 // write variables that holds the player's score and the computer's score
 let humanScore = 0;
 let computerScore = 0;
 
-playGame();
+let humanChoice = getHumanChoice();
+let computerChoice = getComputerChoice();
+
+//make rock button make game play with user choice as rock
+btn1.onclick = () => {
+    const humanChoice = "rock";
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+}
+
+btn2.onclick = () => {
+    const humanChoice = "paper";
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+}
+
+btn3.onclick = () => {
+    const humanChoice = "scissors";
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+}
+
+
 
 
